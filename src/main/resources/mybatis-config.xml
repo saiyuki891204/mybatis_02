@@ -10,8 +10,29 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-    
+
+    <!--别名处理器 type是要起别名的这个类的全类名，默认别名就是类名小写-->
+    <!--别名不区别大小写-->
+    <typeAliases>
+        <typeAlias type="com.cx.mybatis.bean.Employee" alias="employee"></typeAlias>
+
+        <!--批量起别名-->
+        <package name="com.cx.mybatis.bean"/>
+    </typeAliases>
+
+    <!--通过default指定用哪个环境的数据源-->
     <environments default="development">
+        
+        <environment id="test">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}" />
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}" />
+                <property name="password" value="${jdbc.password}" />
+            </dataSource>
+        </environment>
+
         <environment id="development">
             <!-- 使用jdbc管理事务，事务控制由mybatis -->
             <transactionManager type="JDBC" />
@@ -29,10 +50,25 @@
         </environment>
     </environments>
 
+    <!--配置多种数据库-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>
 
     <!-- 加载映射文件 -->
     <mappers>
-        <mapper resource="EmployeeMapper2.xml" />
+        <!--<mapper resource="EmployeeMapper.xml" />-->
+        <!--class注册接口，映射文件必须 和接口同名且放在同级目录下-->
+<!--
+        <mapper class="com.cx.mybatis.dao.mapper.EmployeeMapperAnotation"/>
+-->
 
+        <!--没有sql映射文件  所有的sql都是利用注解写在接口上-->
+        <mapper class="com.cx.mybatis.dao.mapper.EmployeeMapperAnotation"/>
+
+        <!--批量注册-->
+        <package name="com.cx.mybatis.dao.mapper"/>
     </mappers>
 </configuration>
