@@ -59,14 +59,12 @@
 
     <!-- 加载映射文件 -->
     <mappers>
-        <!--<mapper resource="EmployeeMapper.xml" />-->
         <!--class注册接口，映射文件必须 和接口同名且放在同级目录下-->
-<!--
-        <mapper class="com.cx.mybatis.dao.mapper.EmployeeMapperAnotation"/>
--->
+        <!--<mapper resource="EmployeeMapper.xml" />-->
+
 
         <!--没有sql映射文件  所有的sql都是利用注解写在接口上-->
-        <mapper class="com.cx.mybatis.dao.mapper.EmployeeMapperAnotation"/>
+       <!-- <mapper class="com.cx.mybatis.dao.mapper.EmployeeMapperAnotation"/>-->
 
         <!--批量注册-->
         <package name="com.cx.mybatis.dao.mapper"/>
